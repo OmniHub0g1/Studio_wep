@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>عن OurStudio — نبني الأدوات، نمكّن المبدعين</title>
+
+    <!-- Google Fonts (Arabic + English) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+    <style>
+        /* ===== Reset & Base ===== */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0b0d10;
+            --bg-secondary: #111318;
+            --bg-card: #181b21;
+            --bg-card-hover: #1f232b;
+            --text-primary: #f0f2f5;
+            --text-secondary: #9aa0b0;
+            --text-muted: #6b7280;
+            --accent-blue: #4f8cff;
+            --accent-purple: #8b5cf6;
+            --accent-glow: rgba(79, 140, 255, 0.15);
+            --border-subtle: rgba(255, 255, 255, 0.06);
+            --radius-lg: 24px;
+            --radius-md: 16px;
+            --radius-sm: 10px;
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', 'Cairo', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* ===== Scrollbar ===== */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--bg-card);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--bg-card-hover);
+        }
+
+        /* ===== Utility ===== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .section-padding {
+            padding: 100px 0;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(79, 140, 255, 0.12);
+            color: var(--accent-blue);
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            padding: 6px 16px;
+            border-radius: 100px;
+            border: 1px solid rgba(79, 140, 255, 0.15);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3.2rem);
+            font-weight: 800;
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+        }
+
+        .section-title .highlight {
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            line-height: 1.7;
+        }
+
+        /* ===== Navbar ===== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 18px 0;
+            background: rgba(11, 13, 16, 0.75);
+            backdrop-filter: blur(16px) saturate(1.4);
+            border-bottom: 1px solid var(--border-subtle);
+            transition: var(--transition);
+        }
+
+        .navbar .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.3rem;
+            font-weight: 800;
+            text-decoration: none;
+            color: var(--text-primary);
+            letter-spacing: -0.5px;
+        }
+
+        .logo-icon {
+            width: 34px;
+            height: 34px;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1rem;
+            color: #fff;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .btn-outline {
+            padding: 10px 24px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 100px;
+            background: transparent;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            font-family: inherit;
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.2);
+            color: var(--text-primary);
+        }
+
+        .btn-primary {
+            padding: 10px 28px;
+            border: none;
+            border-radius: 100px;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            color: #fff;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            font-family: inherit;
+            box-shadow: 0 4px 20px rgba(79, 140, 255, 0.25);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(79, 140, 255, 0.35);
+        }
+
+        .btn-primary-large {
+            padding: 16px 44px;
+            font-size: 1.05rem;
+            border-radius: 100px;
+            box-shadow: 0 6px 30px rgba(79, 140, 255, 0.3);
+        }
+
+        .btn-primary-large:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 48px rgba(79, 140, 255, 0.4);
+        }
+
+        /* ===== Hero ===== */
+        .hero {
+            padding: 160px 0 100px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -40%;
+            right: -20%;
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(circle, rgba(79, 140, 255, 0.06) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -15%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.05) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero .container {
+            position: relative;
+            z-index: 2;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero-content .badge {
+            margin-bottom: 24px;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(2.6rem, 5vw, 4.2rem);
+            font-weight: 800;
+            line-height: 1.08;
+            letter-spacing: -0.03em;
+            margin-bottom: 24px;
+        }
+
+        .hero-content h1 .highlight {
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-description {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 520px;
+            line-height: 1.8;
+            margin-bottom: 36px;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 48px;
+            margin-top: 48px;
+            padding-top: 32px;
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        .hero-stats .stat {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .hero-stats .stat-number {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-stats .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Hero Visual */
+        .hero-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            padding: 40px 36px;
+            width: 100%;
+            max-width: 460px;
+            backdrop-filter: blur(4px);
+            transition: var(--transition);
+        }
+
+        .hero-card:hover {
+            border-color: rgba(79, 140, 255, 0.2);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        .hero-card .card-badge {
+            display: inline-block;
+            background: rgba(79, 140, 255, 0.1);
+            color: var(--accent-blue);
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 4px 14px;
+            border-radius: 100px;
+            margin-bottom: 16px;
+            letter-spacing: 0.3px;
+        }
+
+        .hero-card h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .hero-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+        }
+
+        .hero-card .code-block {
+            background: var(--bg-primary);
+            border-radius: var(--radius-sm);
+            padding: 16px 20px;
+            font-family: 'Inter', monospace;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            border: 1px solid var(--border-subtle);
+            overflow-x: auto;
+            white-space: pre;
+            direction: ltr;
+            text-align: left;
+        }
+
+        .hero-card .code-block .blue {
+            color: var(--accent-blue);
+        }
+        .hero-card .code-block .purple {
+            color: var(--accent-purple);
+        }
+        .hero-card .code-block .comment {
+            color: var(--text-muted);
+        }
+
+        /* ===== About / Who We Are ===== */
+        .about {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-subtle);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        .about-text p {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .about-text p:last-child {
+            margin-bottom: 0;
+        }
+
+        .about-values {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .value-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+            padding: 28px 24px;
+            transition: var(--transition);
+        }
+
+        .value-card:hover {
+            background: var(--bg-card-hover);
+            border-color: rgba(79, 140, 255, 0.15);
+            transform: translateY(-4px);
+        }
+
+        .value-card .icon {
+            font-size: 1.8rem;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .value-card h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .value-card p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* ===== Mission ===== */
+        .mission {
+            text-align: center;
+        }
+
+        .mission .section-subtitle {
+            margin: 0 auto 48px;
+        }
+
+        .mission-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+            text-align: right;
+        }
+
+        .mission-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+            padding: 36px 28px;
+            transition: var(--transition);
+        }
+
+        .mission-item:hover {
+            background: var(--bg-card-hover);
+            border-color: rgba(79, 140, 255, 0.12);
+            transform: translateY(-4px);
+        }
+
+        .mission-item .step {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--accent-blue);
+            background: rgba(79, 140, 255, 0.1);
+            padding: 2px 12px;
+            border-radius: 100px;
+            margin-bottom: 14px;
+            letter-spacing: 0.5px;
+        }
+
+        .mission-item h4 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .mission-item p {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* ===== CTA ===== */
+        .cta {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-subtle);
+            text-align: center;
+        }
+
+        .cta .section-title {
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta .section-subtitle {
+            margin: 0 auto 40px;
+        }
+
+        .cta-actions {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        /* ===== Footer ===== */
+        .footer {
+            padding: 40px 0;
+            border-top: 1px solid var(--border-subtle);
+            text-align: center;
+        }
+
+        .footer p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .footer a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer a:hover {
+            color: var(--text-primary);
+        }
+
+        /* ===== Responsive ===== */
+        @media (max-width: 1024px) {
+            .hero .container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-description {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .hero-actions {
+                justify-content: center;
+            }
+
+            .hero-stats {
+                justify-content: center;
+            }
+
+            .hero-visual {
+                order: -1;
+            }
+
+            .hero-card {
+                max-width: 100%;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .mission-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .section-padding {
+                padding: 64px 0;
+            }
+
+            .hero {
+                padding: 120px 0 64px;
+            }
+
+            .hero-stats {
+                gap: 28px;
+                flex-wrap: wrap;
+            }
+
+            .about-values {
+                grid-template-columns: 1fr;
+            }
+
+            .mission-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .navbar .container {
+                flex-wrap: wrap;
+                gap: 12px;
+            }
+
+            .nav-actions {
+                width: 100%;
+                justify-content: flex-start;
+            }
+
+            .btn-outline {
+                padding: 8px 18px;
+                font-size: 0.8rem;
+            }
+
+            .btn-primary {
+                padding: 8px 20px;
+                font-size: 0.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-card {
+                padding: 24px 20px;
+            }
+
+            .hero-card .code-block {
+                font-size: 0.7rem;
+                padding: 12px 14px;
+            }
+
+            .btn-primary-large {
+                padding: 14px 32px;
+                font-size: 0.95rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ===== NAVBAR ===== -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="#" class="logo">
+                <span class="logo-icon">✦</span>
+                OurStudio
+            </a>
+            <div class="nav-actions">
+                <a href="#" class="btn-outline">مدوّنة</a>
+                <a href="https://omnihub0g1.github.io/WebStudio/" target="_blank" class="btn-primary">
+                    WebStudio ⚡
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ===== HERO ===== -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <span class="badge">✦ نصنع المستقبل الرقمي</span>
+                <h1>
+                    نبني الأدوات<br />
+                    <span class="highlight">نمكّن المبدعين</span>
+                </h1>
+                <p class="hero-description">
+                    منصة متكاملة تجمع بين التصميم الاحترافي، البساطة، والقوة.
+                    نؤمن بأن التكنولوجيا يجب أن تكون في خدمة الإبداع،
+                    ليس العكس.
+                </p>
+                <div class="hero-actions">
+                    <a href="https://omnihub0g1.github.io/WebStudio/" target="_blank" class="btn-primary btn-primary-large">
+                        ابدأ مع WebStudio →
+                    </a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-number">+12K</span>
+                        <span class="stat-label">مستخدم نشط</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">98%</span>
+                        <span class="stat-label">رضا العملاء</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">4.9★</span>
+                        <span class="stat-label">تقييم المستخدمين</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-visual">
+                <div class="hero-card">
+                    <span class="card-badge">⚡ WebStudio API</span>
+                    <h3>أنشئ موقعاً في دقائق</h3>
+                    <p>بضعة نقرات، تصميم احترافي، ونتيجة مبهرة.</p>
+                    <div class="code-block">
+                        <span class="comment">// إنشاء مشروع جديد</span><br />
+                        <span class="blue">const</span> studio = <span class="purple">new</span> WebStudio()<br />
+                        studio.<span class="blue">create</span>({<br />
+                        &nbsp;&nbsp;name: <span class="purple">'موقعي'</span>,<br />
+                        &nbsp;&nbsp;template: <span class="purple">'modern'</span><br />
+                        })<br />
+                        <span class="comment">// ✅ جاهز للنشر</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== ABOUT / WHO WE ARE ===== -->
+    <section class="about section-padding">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-text">
+                    <span class="badge">من نحن</span>
+                    <h2 class="section-title">
+                        فريق شغوف<br />
+                        <span class="highlight">ببناء الأدوات</span>
+                    </h2>
+                    <p>
+                        نحن <strong>OurStudio</strong> — مجموعة من المطورين، المصممين،
+                        والمفكرين الذين يجمعهم شغف واحد: <strong>تبسيط التعقيد</strong>.
+                        نؤمن بأن أفضل الأدوات هي تلك التي تختفي خلف الإبداع،
+                        وتعمل بصمت لتمكين المستخدم من التركيز على ما يهم حقاً.
+                    </p>
+                    <p>
+                        انطلقنا من فكرة بسيطة: <strong>لماذا تكون بناء المواقع معقدة؟</strong>
+                        قمنا بتصميم WebStudio ليكون الجسر بين الفكرة والإطلاق،
+                        دون التضحية بالجودة أو المرونة.
+                    </p>
+                    <p style="color: var(--text-primary); font-weight: 500; margin-top: 8px;">
+                        نبني الأدوات التي كنا نتمنى أن نجدها.
+                    </p>
+                </div>
+
+                <div class="about-values">
+                    <div class="value-card">
+                        <span class="icon">🎯</span>
+                        <h4>الوضوح</h4>
+                        <p>تصميم بسيط، تجربة بديهية، وهدف واضح في كل تفصيلة.</p>
+                    </div>
+                    <div class="value-card">
+                        <span class="icon">⚡</span>
+                        <h4>الكفاءة</h4>
+                        <p>أدوات ذكية توفر الوقت، مع الحفاظ على أعلى مستويات الجودة.</p>
+                    </div>
+                    <div class="value-card">
+                        <span class="icon">🌍</span>
+                        <h4>الشمولية</h4>
+                        <p>نصنع لتكنولوجيا في متناول الجميع، بغض النظر عن الخبرة التقنية.</p>
+                    </div>
+                    <div class="value-card">
+                        <span class="icon">🚀</span>
+                        <h4>الابتكار</h4>
+                        <p>نتطلع دائماً إلى الأمام، نبحث عن طرق جديدة لجعل الإبداع أسهل.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== MISSION ===== -->
+    <section class="mission section-padding">
+        <div class="container">
+            <span class="badge">هدفنا</span>
+            <h2 class="section-title">
+                رحلة<br />
+                <span class="highlight">من الفكرة إلى الإطلاق</span>
+            </h2>
+            <p class="section-subtitle">
+                نؤمن بأن كل مشروع يستحق أن يرى النور. هذه هي الخطوات التي نضعها
+                في قلب كل ما نبنيه.
+            </p>
+
+            <div class="mission-grid">
+                <div class="mission-item">
+                    <span class="step">01</span>
+                    <h4>تصميم يركز على الإنسان</h4>
+                    <p>
+                        نبدأ بفهم احتياجات المستخدم، ثم نصمم تجارب بديهية
+                        تجعل التفاعل مع التكنولوجيا طبيعياً وممتعاً.
+                    </p>
+                </div>
+                <div class="mission-item">
+                    <span class="step">02</span>
+                    <h4>بناء أدوات قابلة للتطوير</h4>
+                    <p>
+                        نبني أساساً متيناً يمكن أن ينمو مع مشاريعك،
+                        من فكرة بسيطة إلى منصة متكاملة.
+                    </p>
+                </div>
+                <div class="mission-item">
+                    <span class="step">03</span>
+                    <h4>تمكين الإبداع بلا حدود</h4>
+                    <p>
+                        نوفر لك الحرية في التعبير عن رؤيتك،
+                        مع أدوات تدعم إبداعك بدلاً من تقييده.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CTA ===== -->
+    <section class="cta section-padding">
+        <div class="container">
+            <span class="badge">انطلق الآن</span>
+            <h2 class="section-title">
+                مستعد لبناء<br />
+                <span class="highlight">شيء رائع؟</span>
+            </h2>
+            <p class="section-subtitle">
+                انضم إلى آلاف المبدعين الذين يثقون بـ WebStudio
+                لتحويل أفكارهم إلى واقع رقمي.
+            </p>
+            <div class="cta-actions">
+                <a href="https://omnihub0g1.github.io/WebStudio/" target="_blank" class="btn-primary btn-primary-large">
+                    ابدأ مع WebStudio مجاناً →
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="container">
+            <p>
+                © 2026 <a href="#">OurStudio</a> — صنعناها بحب ✦
+                <br style="display: none;" />
+                <span style="color: var(--text-muted); font-size: 0.8rem;">
+                    نؤمن بأن التكنولوجيا يجب أن تكون جميلة، بسيطة، وفي متناول الجميع.
+                </span>
+            </p>
+        </div>
+    </footer>
+
+</body>
+</html>
